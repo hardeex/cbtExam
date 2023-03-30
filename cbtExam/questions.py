@@ -8,7 +8,7 @@ class Questions:
             'C': "Guido Van Rossum",
             'D': "Niene Stom"
         }
-        print("\n")
+        print("\n\n")
         print(q1, option1)
 
     def question2():
