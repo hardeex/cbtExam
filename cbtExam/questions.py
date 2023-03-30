@@ -5,9 +5,10 @@ class Questions:
         option1 = {
             'A': "Wick van Rossum",
             'B': "Rasmus Lerdorf",
-            'C': "Guido van Rossum",
+            'C': "Guido Van Rossum",
             'D': "Niene Stom"
         }
+        print("\n")
         print(q1, option1)
 
     def question2():
