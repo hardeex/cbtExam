@@ -8,20 +8,19 @@ def db_user():
     prompt = True
     while prompt:
         logorreg = input("Login or Register:> ").lower()
+        # remeber to trim all spaces
 
         if logorreg == "register" or logorreg == "r":
            register_user()
             
 
         elif logorreg == "l" or logorreg == "login":
-            
                 loggedIn_user()
 
         elif logorreg == "exit" or logorreg == "stop":
             print("<<<<< Login/Register Prompt Closed >>>>>")
             prompt = False
             
-
         else:
             print(f"({logorreg}) is an invalid command for this interface \n")
             print(''' 
@@ -31,21 +30,6 @@ def db_user():
             exit --> to close the login/register prompt
             ''')
 
-
-def dbcheck():
-    if os.path.exists("cbtuser.db"):
-        conn = sqlite3.connect("cbtuser.db")
-        c = conn.cursor()
-    else:
-        conn = sqlite3.connect("cbtuser.db")
-        c = conn.cursor()
-        c.execute('''CREATE TABLE cbtuser (username text, password text)''')
-    print(''' 
-            Type l or login in your terminal to login
-            Type r or register in your terminal to register
-            NB: The case of the text do not matter
-            exit --> to close the login/register prompt
-            ''')
 
 def register_user():
     if os.path.exists("cbtuser.db"):
@@ -64,7 +48,7 @@ def register_user():
 
 
     print("\n Enter your username and password to create an account\n")
-    username = input("Username: ")
+    username = input("Username: ").lower()
     password = input("Password: ")
 
     c.execute("INSERT INTO cbtuser VALUES (?, ?)", [username, password])
@@ -74,8 +58,7 @@ def register_user():
     loggedIn_user()
             
 
-
-                 
+               
 def loggedIn_user():
            
     if os.path.exists("cbtuser.db"):
@@ -97,31 +80,35 @@ def loggedIn_user():
 
     c. execute("SELECT * FROM cbtuser WHERE username=? and password=?", [username, password])
     if c.fetchone() == None:
-        print("Invalid data")
+        print("username or password is wrong")
+        print("\n Kindly register to have access to the quiz session\n")
+        register_user()
            
     else:
         print("logged In")
+        #navigate to the questions
 
-class UserInput:
-    def getUserCommand():
+
+def getUserCommand():
         
         prompt = True
         while prompt:
             command = input("> ").lower()
             
-            if command == 'login' or command == "l":
-                # login interface
-                '''
-                if email exit --- navigate to the quiz
-                else navigate to register interface
-                '''
+            if command == 'test' or command == "t":
                 print("\n Login/Register interface\n")
-                #dblogin
                 db_user()
 
             elif command == 'help':
                 intro()
                 break
+            
+            elif command == "r" or command == "register": 
+                register_user()
+
+            elif command == "l" or command == "login":
+                loggedIn_user()
+
             elif command == 'exit':
                 print(">>>>> PROMPT CLOSED >>>>>>> \n")
                 prompt = False
@@ -133,15 +120,18 @@ class UserInput:
 def intro():
     print('''
         WELCOME TO OUR CBT PLATFORM
-        \t\t NB: The case of your command do not matter. That is, it doesn't matter if your type in capital, small or combination of both
+
+            NB: The case of your command do not matter. That is, 
+            it doesn't matter if you type in capital, 
+            small or combination of both
 
         help --> For system assistance
-        login --> To login to the test interface
         exit --> to quit the test
+        test --> Navigate to the test interface
         l or login --> to login into the system database
         r or register --> to register your data in the database
     ''')
-    UserInput.getUserCommand()
+    getUserCommand()
     
 intro()
 
