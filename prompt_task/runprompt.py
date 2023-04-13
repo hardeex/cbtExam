@@ -71,11 +71,18 @@ class MyPrompt():
                 for capitals in staandcap:
                     print(staandcap[capitals])
 
-            elif prompt == "nigeria first two":
+            elif prompt == "nigeria first two" or prompt == "ls first two" or prompt == "nigeria first_two":
                 first_two = list(staandcap.items())[:2]
                 print("STATE \t\t CAPITAL\n")
                 for state, capital in first_two:
                     print(f"{state} \t\t\t {capital}") 
+
+            elif prompt == "nigeria head" or prompt == "ls head":
+                first_ten = list(staandcap.items())[:10]
+                print("STATE \t\t CAPITAL\n")
+                for state, capital in first_ten:
+                    print(f"{state} \t\t {capital}")
+            
             else:
                 print("<<<< Invalid command for this program >>>>>")
                 print("DO you want to see the command list for this program")
@@ -86,6 +93,11 @@ class MyPrompt():
                     nigeria first two ---> To see the first two state and capital 
                     nigeria state --> To view the states only
                     nigeria capital --> To view the capital in the state only
+                    nigeria head or ls head --> To display the first 10 states and capital
+                    exit or stop or quit --> To closed the command prompt
+
+                    More commands will added as the program improve
+                    
                     ''')
                 else:
                     prompt
